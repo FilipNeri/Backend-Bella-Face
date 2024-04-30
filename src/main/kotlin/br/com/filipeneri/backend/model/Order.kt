@@ -1,5 +1,6 @@
 package br.com.filipeneri.backend.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import java.util.Date
 
@@ -10,6 +11,7 @@ data class Order(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long? = null,
         @ManyToOne
+        @JsonIgnore
         @JoinColumn(name = "customer_id", nullable = false)
         var customer: Customer? = null,
         @Column(name = "total_order")

@@ -10,8 +10,11 @@ class CustomerService {
     @Autowired
     private lateinit var repository: CustomerRepository
 
-    fun validate(login: String, password: String): Boolean {
+    fun validate(login: String, password: String): Long {
         val customer = repository.findByLoginAndPassword(login, password)
-        return customer != null
+        if (customer != null) {
+            return customer.id
+        }
+        return -1
     }
 }

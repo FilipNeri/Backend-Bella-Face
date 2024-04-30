@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/order")
 class OrderController {
-    @Autowired//this annotation will inject the instance when necessary
+    @Autowired
     private lateinit var service: OrderService
 
     @RequestMapping(

@@ -8,3 +8,5 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+    cors:
+      originPatterns: ${CORS_ORIGINS}

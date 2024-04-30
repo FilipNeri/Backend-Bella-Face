@@ -10,6 +10,8 @@ import br.com.filipeneri.backend.repository.OrderRepository
 import br.com.filipeneri.backend.repository.ProductRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.crossstore.ChangeSetPersister
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
 @Service
@@ -28,7 +30,10 @@ class OrderProductService {
                 .orElseThrow { NoSuchElementException("Order not found with ID: ${orderProductDTO.orderId}") }
 
         val orderProductId = OrderProductId(productId = product.id!!, orderId = order.id!!)
-
+        val exists = orderProductRepository.existsByOrderIdAndProductId(orderProductDTO.orderId,orderProductDTO.productId )
+        if (exists){
+            throw Throwable("OrderProduct already exist!")
+        }
         var orderProduct = OrderProduct(
                 id = orderProductId,
                 product = product,
@@ -68,6 +73,9 @@ class OrderProductService {
     }
     fun deleteAll(){
         orderProductRepository.deleteAll()
+    }
+    fun findAllCart(): List<OrderProduct?>{
+        return orderProductRepository.findAll()
     }
 
 }

@@ -25,7 +25,6 @@ data class OrderProduct(
         var order: Order? = null,
 
         @ManyToOne
-        @JsonIgnore
         @JoinColumn(name = "product_id", insertable = false, updatable = false)
         var product: Product? = null,
 
