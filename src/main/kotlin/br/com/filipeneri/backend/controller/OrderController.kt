@@ -1,6 +1,7 @@
 package br.com.filipeneri.backend.controller
 
-import br.com.filipeneri.backend.dto.CommentaryDTO
+
+import br.com.filipeneri.backend.dto.FinishOrderDTO
 import br.com.filipeneri.backend.dto.OrderDTO
 import br.com.filipeneri.backend.model.Order
 import br.com.filipeneri.backend.model.Product
@@ -28,11 +29,11 @@ class OrderController {
     }
 
     @RequestMapping(
-            value = ["/add-commentary"],
+            value = ["/finish-order"],
             method = [RequestMethod.POST],
             consumes = [MediaType.APPLICATION_JSON_VALUE],
             produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun addCommentary(@RequestBody commentary: CommentaryDTO): Order {
-        return service.addCommentay(commentary)
+    fun finishOrder(@RequestBody order: FinishOrderDTO): Order {
+        return service.finishOrder(order)
     }
 }

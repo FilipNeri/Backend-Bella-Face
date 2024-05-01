@@ -45,8 +45,8 @@ class OrderProductController {
     fun delete(){
         service.deleteAll()
     }
-    @RequestMapping(method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun findAllCart(): List<OrderProduct?> {
-        return service.findAllCart()
+    @RequestMapping(value = ["/{order}"], method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun findAllCart(@PathVariable(value = "order") orderId: Long): List<OrderProduct?> {
+        return service.findAllCart(orderId)
     }
 }

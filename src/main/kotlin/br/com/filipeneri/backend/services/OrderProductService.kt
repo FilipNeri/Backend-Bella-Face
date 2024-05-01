@@ -74,8 +74,8 @@ class OrderProductService {
     fun deleteAll(){
         orderProductRepository.deleteAll()
     }
-    fun findAllCart(): List<OrderProduct?>{
-        return orderProductRepository.findAll()
+    fun findAllCart(orderId: Long): List<OrderProduct?>{
+        return orderProductRepository.findByOrderId(orderId)
     }
 
 }

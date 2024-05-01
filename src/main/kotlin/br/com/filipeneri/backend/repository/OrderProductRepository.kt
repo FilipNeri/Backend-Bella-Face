@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository
 interface OrderProductRepository : JpaRepository<OrderProduct, Long?> {
     fun findByOrderIdAndProductId(order_id: Long, product_id: Long): OrderProduct?
     fun existsByOrderIdAndProductId(orderId: Long, productId: Long): Boolean
+    fun findByOrderId(orderId: Long):List<OrderProduct?>
 }

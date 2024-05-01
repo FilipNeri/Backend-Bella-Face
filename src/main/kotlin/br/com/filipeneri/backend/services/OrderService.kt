@@ -1,6 +1,6 @@
 package br.com.filipeneri.backend.services
 
-import br.com.filipeneri.backend.dto.CommentaryDTO
+import br.com.filipeneri.backend.dto.FinishOrderDTO
 import br.com.filipeneri.backend.dto.OrderDTO
 import br.com.filipeneri.backend.model.Order
 import br.com.filipeneri.backend.model.Product
@@ -19,14 +19,20 @@ class OrderService {
     fun create(orderDTO: OrderDTO) : Order{
         val customer = customerRepository.findById(orderDTO.customerId)
                 .orElseThrow { NoSuchElementException("Customer not found with ID: ${orderDTO.customerId}") }
-        var order = Order()
-        order.customer = customer
-        return orderRepository.save(order)
+
+        var order = orderRepository.findLatestOrderWithTotalOrderZero(customer.id)
+        if(order != null){
+            return order
+        }
+        var newOrder = Order()
+        newOrder.customer = customer
+        return orderRepository.save(newOrder)
     }
-    fun addCommentay(commentaryDTO: CommentaryDTO) : Order{
-        var order = orderRepository.findById(commentaryDTO.orderId)
-                .orElseThrow { NoSuchElementException("Order not found with ID: ${commentaryDTO.orderId}") }
-        order.comments = commentaryDTO.commentary
+    fun finishOrder(orderFinish: FinishOrderDTO) : Order{
+        var order = orderRepository.findById(orderFinish.orderId)
+                .orElseThrow { NoSuchElementException("Order not found with ID: ${orderFinish.orderId}") }
+        order.comments = orderFinish.commentary
+        order.totalOrder = orderFinish.totalOrder
         return orderRepository.save(order)
     }
 }
